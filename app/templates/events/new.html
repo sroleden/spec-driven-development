@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}New event · Dark Spark{% endblock %}
+{% block content %}
+<h1>New event</h1>
+<div class="card">
+  {% if error %}<div class="alert error" role="alert">{{ error }}</div>{% endif %}
+  <form class="stack" method="post" action="/events/new">
+    <label>Name <input name="name" value="{{ form.name }}" required></label>
+    <label>Venue <input name="venue" value="{{ form.venue }}" required></label>
+    <label>Starts at <input type="datetime-local" name="starts_at" value="{{ form.starts_at }}" required></label>
+    <label>Capacity <input type="number" name="capacity" min="1" max="10000" value="{{ form.capacity }}" required></label>
+    <label>Price (€) <input type="number" name="price" min="0" step="0.01" value="{{ form.price or 0 }}"></label>
+    <button type="submit">Create event</button>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}{{ event.name }} · Dark Spark{% endblock %}
+{% block content %}
+<p><a href="/">← All events</a></p>
+<div class="card">
+  <h1>{{ event.name }}</h1>
+  <p class="muted">{{ event.venue }} · {{ event.starts_at | when }}</p>
+  <p class="price">{{ event.price_cents | money }}</p>
+  <p id="availability">
+    {% if event.seats_available == 0 %}
+    <span class="badge soldout">Sold out</span>
+    {% else %}
+    <span class="badge available">{{ event.seats_available }} seats available</span>
+    {% endif %}
+  </p>
+  {% block event_actions %}
+  {% if error %}<div class="alert error" role="alert">{{ error }}</div>{% endif %}
+  {% if event.seats_available == 0 %}
+  <p class="alert error">This event is sold out</p>
+  <h2>Join the waitlist</h2>
+  <form class="stack" id="waitlist-form" method="post" action="/events/{{ event.id }}/waitlist">
+    <label>Name <input name="name" value="{{ form.name or '' }}" autocomplete="name"></label>
+    <label>Email <input type="email" name="email" value="{{ form.email or '' }}" autocomplete="email"></label>
+    <label>Seats <input type="number" name="seats" value="{{ form.seats or 1 }}"></label>
+    <button type="submit">Join waitlist</button>
+  </form>
+  {% else %}
+  <form class="stack" method="post" action="/events/{{ event.id }}/reserve">
+    <label>Name <input name="name" value="{{ form.name or '' }}" autocomplete="name"></label>
+    <label>Email <input type="email" name="email" value="{{ form.email or '' }}" autocomplete="email"></label>
+    <label>Seats <input type="number" name="seats" value="{{ form.seats or 1 }}"></label>
+    <button type="submit">Reserve seats</button>
+  </form>
+  {% endif %}
+  {% endblock %}
+</div>
+{% endblock %}

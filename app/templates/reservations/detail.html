@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %}Reservation {{ r.code }} · Dark Spark{% endblock %}
+{% block content %}
+<p><a href="/">← All events</a></p>
+{% include "partials/reservation_card.html" %}
+{% endblock %}

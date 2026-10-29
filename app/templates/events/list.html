@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-head">
+  <h1>Upcoming events</h1>
+  <a class="button" href="/events/new">+ New event</a>
+</div>
+{% if events %}
+<div class="grid">
+  {% for event in events %}
+  <a class="card event-card" href="/events/{{ event.id }}">
+    <h2>{{ event.name }}</h2>
+    <p class="muted">{{ event.venue }}<br>{{ event.starts_at | when }}</p>
+    <p>
+      {% if event.seats_available == 0 %}
+      <span class="badge soldout">Sold out</span>
+      {% else %}
+      <span class="badge available">{{ event.seats_available }} seats left</span>
+      {% endif %}
+      <span class="muted">· {{ event.price_cents | money }}</span>
+    </p>
+  </a>
+  {% endfor %}
+</div>
+{% else %}
+<div class="card"><p>No upcoming events yet</p></div>
+{% endif %}
+{% endblock %}

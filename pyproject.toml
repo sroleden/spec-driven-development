@@ -1,0 +1,36 @@
+[project]
+name = "dark-spark"
+version = "0.1.0"
+description = "Event ticketing sample app built with spec-driven development, Claude Code skills and agents"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.32",
+    "jinja2>=3.1",
+    "sqlmodel>=0.0.22",
+    "python-multipart>=0.0.12",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "httpx2",
+    "ruff>=0.8",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+extend-exclude = ["*.md"]  # specs are owned by spec agents; ruff must not reformat their code blocks
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.uv]
+package = false
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["E501"]  # AC docstrings are copied verbatim from the spec

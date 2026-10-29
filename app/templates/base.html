@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="htmx-config" content='{"responseHandling":[{"code":"204","swap":false},{"code":"404|409|422","swap":true,"error":false},{"code":"[23]..","swap":true},{"code":"[45]..","swap":false,"error":true},{"code":"...","swap":false}]}'>
+  <title>{% block title %}Dark Spark Tickets{% endblock %}</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+</head>
+<body>
+  <header class="site-header">
+    <a href="/" class="brand">⚡ Dark Spark Tickets</a>
+  </header>
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

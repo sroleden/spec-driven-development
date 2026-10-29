@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(uv run pytest:*)",
+      "Bash(uv run ruff:*)",
+      "Bash(uv run python -m app.seed:*)",
+      "Bash(uv sync:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Edit(specs/**)",
+      "Write(specs/**)",
+      "Edit(app/**)",
+      "Write(app/**)",
+      "Edit(tests/**)",
+      "Write(tests/**)"
+    ]
+  }
+}

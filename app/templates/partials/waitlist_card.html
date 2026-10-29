@@ -1,0 +1,19 @@
+<div class="card" id="waitlist-entry">
+  {% if w %}
+  <h1>Waitlist entry {{ w.code }}</h1>
+  <p>{{ w.event_name }}</p>
+  <p>{{ w.seats }} {{ "seat" if w.seats == 1 else "seats" }} wanted · {{ w.name }}</p>
+  <p>Status: {{ w.status.value | capitalize }}</p>
+  {% endif %}
+  {% if error %}<div class="alert error" role="alert">{{ error }}</div>{% endif %}
+  {% if not w %}
+  {% elif w.status.value == "waiting" %}
+  <p>Position in line: {{ w.position }}</p>
+  <button type="button" class="secondary" hx-post="/waitlist/{{ w.code }}/leave"
+          hx-target="#waitlist-entry" hx-swap="outerHTML">Leave waitlist</button>
+  {% elif w.status.value == "promoted" %}
+  <p>Booking reference: <a href="/reservations/{{ w.booking_code }}">{{ w.booking_code }}</a></p>
+  {% elif w.status.value == "left" %}
+  <div class="alert success" role="status">You have left the waitlist</div>
+  {% endif %}
+</div>

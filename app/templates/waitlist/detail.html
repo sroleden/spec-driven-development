@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %}Waitlist entry {{ w.code }} · Dark Spark{% endblock %}
+{% block content %}
+<p><a href="/">← All events</a></p>
+{% include "partials/waitlist_card.html" %}
+{% endblock %}

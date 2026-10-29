@@ -1,0 +1,16 @@
+<div class="card" id="reservation">
+  {% if r %}
+  <h1>Reservation {{ r.code }}</h1>
+  <p>{{ r.event_name }}</p>
+  <p>{{ r.seats }} {{ "seat" if r.seats == 1 else "seats" }} · {{ r.name }}</p>
+  <p>Status: {{ r.status.value | capitalize }}</p>
+  {% endif %}
+  {% if error %}<div class="alert error" role="alert">{{ error }}</div>{% endif %}
+  {% if not r %}
+  {% elif r.status.value == "cancelled" %}
+  <div class="alert success" role="status">Reservation cancelled</div>
+  {% else %}
+  <button type="button" class="secondary" hx-post="/reservations/{{ r.code }}/cancel"
+          hx-target="#reservation" hx-swap="outerHTML">Cancel reservation</button>
+  {% endif %}
+</div>

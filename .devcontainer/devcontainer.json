@@ -1,0 +1,41 @@
+{
+  "name": "Dark Spark Dev Container",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
+      "version": "latest",
+      "moby": false,
+      "dockerDashComposeVersion": "v2"
+    },
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "latest"
+    }
+  },
+  // Python deps come from pyproject.toml at the repo root (uv-managed .venv).
+  "postCreateCommand": "uv sync",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-toolsai.jupyter",
+        "charliermarsh.ruff",
+        "eamodio.gitlens",
+        "usernamehw.errorlens",
+        "Anthropic.claude-code",
+        "marp-team.marp-vscode"
+      ],
+      "settings": {
+        "editor.formatOnSave": true,
+        "[python]": {
+          "editor.defaultFormatter": "charliermarsh.ruff"
+        },
+        "python.defaultInterpreterPath": "${containerWorkspaceFolder}/.venv/bin/python",
+        "jupyter.notebookFileRoot": "${fileDirname}"
+      }
+    }
+  },
+  "remoteUser": "vscode"
+}
