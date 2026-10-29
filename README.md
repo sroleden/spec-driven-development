@@ -13,6 +13,7 @@ A sample **event ticketing** app (FastAPI · SQLModel · Jinja2/HTMX) that exist
 | [`.claude/agents/`](.claude/agents) | 6 agents — the *who*: role, tools, model, owned files |
 | [`specs/`](specs) | One folder per feature: `idea → spec → design → tasks → review` |
 | [`app/`](app), [`tests/`](tests) | The code the agents produced, tests named after acceptance criteria |
+| [`char-model/`](char-model) | A tiny character-level language model (GRU, ~632K params) trained on event-listing text |
 
 | Feature | How it was built |
 |---------|------------------|
@@ -38,3 +39,14 @@ claude
 ```
 Or step by step: *"Use the spec-writer agent for feature 004"*, then designer, then the three lane agents
 in parallel, then spec-reviewer.
+
+## Tiny language model
+
+`char-model/` trains a small character-level GRU on ~2,000 synthetic event listings and records loss and
+samples per epoch in `results.json`.
+
+```bash
+uv run --no-project --with torch --index https://download.pytorch.org/whl/cpu python char-model/train.py
+uv run --no-project python char-model/plot_loss.py      # loss-curve SVGs into char-model/images/
+uv run --no-project python char-model/make_corpus.py    # regenerate corpus.txt (needs GEMINI_API_KEY in .env)
+```

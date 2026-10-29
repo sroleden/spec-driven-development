@@ -24,7 +24,10 @@ testpaths = ["tests"]
 [tool.ruff]
 line-length = 100
 target-version = "py312"
-extend-exclude = ["*.md"]  # specs are owned by spec agents; ruff must not reformat their code blocks
+extend-exclude = [
+    "*.md",  # specs are owned by spec agents; ruff must not reformat their code blocks
+    "char-model",  # standalone ML scripts (inline SVG templates), not part of the app
+]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP"]
